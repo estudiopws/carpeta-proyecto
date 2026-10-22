@@ -1,0 +1,20 @@
+# Bitácora del Proyecto
+
+Registro breve de decisiones. Entradas más recientes primero.
+
+## 22/10/2026
+
+- **Secretos en el entorno `prod`.** Teja ha configurado los secretos de Cloudflare como secretos del entorno `prod` de GitHub. El job de despliegue usa `environment: prod` y solo se ejecuta sobre `main` (también al lanzarlo a mano).
+- **Despliegue preparado, no activado.** Se añade `.github/workflows/deploy.yml` en la rama del PR (no en `main`): build de comprobación en cada PR y despliegue a Cloudflare Pages (`wrangler-action@v3`, proyecto `carpeta-proyecto`, rama `main`) solo tras push a `main` o a mano. Permisos mínimos (`contents: read`, `deployments: write`) y grupo de concurrencia. No se han creado secretos ni se ha tocado Cloudflare: Teja debe crear el proyecto de Pages (Direct Upload), un token con «Cloudflare Pages: Edit» y los secretos `CLOUDFLARE_API_TOKEN` y `CLOUDFLARE_ACCOUNT_ID` (pasos en el README).
+- **Diferencias conocidas frente al PDF.**
+  - Los saltos de línea del cuerpo de texto pueden variar en alguna palabra: Aileron de Fontsource tiene métricas algo distintas a la del PDF. Se compensa con un `letter-spacing` de −0,007em; los saltos de títulos y subtítulos se fijan como en el PDF.
+  - Los dobles espacios del PDF (artefacto del justificado de Canva) se han normalizado a espacios simples.
+  - En móvil (≤ 700 px) las páginas pasan a una columna: los títulos y textos se alinean a la izquierda, el texto justificado pasa a alineado a la izquierda y las ilustraciones se muestran debajo del texto (la regla de «Desarrollo de sitios web» se mantiene como borde izquierdo). La portada conserva la composición A4.
+  - En escritorio las páginas se muestran como hojas A4 centradas (máx. 860 px) sobre fondo gris claro, con una ligera sombra.
+  - Se mantienen las erratas y el texto original del PDF (p. ej. «¿Quienes somos?», «Tambien», «facilmente»). El borrador con textos adaptados a España **no** se ha aplicado: está pendiente de aprobación de Teja.
+- **Estructura.** Una sola página (`index.astro`) con 9 `<section>`, una por página del PDF y en el mismo orden. Encabezados semánticos: `h1` en la portada, `h2` por sección y `h3` en los subtítulos. `lang="es"`, textos alternativos en fotos y logos, ilustraciones decorativas con `alt=""`.
+- **Maquetación.** En escritorio y tablet cada sección es una hoja A4 (`aspect-ratio: 595.5/842.25`) y las posiciones y tamaños se expresan en puntos del PDF con unidades de contenedor (`1 pt = 100cqw/595.5`), con coordenadas tomadas del propio PDF (pdfminer). Colores muestreados del PDF: texto `#332D2D`, fondo `#F9F9F9`, azul de ilustraciones `#172E4A`, fondo de portada `#143444`.
+- **Imágenes.** Fotos y logos extraídos con `pdfimages -all` (los PNG con su máscara alfa recompuesta) y servidos como WebP responsive con `astro:assets`. Las ilustraciones (cohete, regla, bloques de branding, tienda, redes sociales y móvil) son vectores del PDF exportados a SVG con `pdftocairo` y recortados, así que no son capturas. La foto de portada mantiene la opacidad del original (72,94 % sobre `#143444`) y la diagonal clara se hace con `clip-path`. No se ha incrustado ninguna captura de página completa.
+- **Fuentes.** Las del PDF, autoalojadas vía Fontsource: Montserrat 700 (portada), Gothic A1 900/800 (títulos y subtítulos) y Aileron 400/700 (cuerpo). Licencias: SIL OFL 1.1 (Montserrat, Gothic A1) y CC0 (Aileron).
+- **Stack.** Astro 5 con salida estática, sin frameworks de UI ni JavaScript en cliente. Dependencias: `astro`, `sharp` y los tres paquetes de Fontsource. Sin analítica ni rastreadores; `noindex, nofollow` y `robots.txt` con `Disallow: /`.
+- **Rama base.** El repositorio estaba vacío: se crea `main` solo con un README de una línea y todo el sitio va en la rama `feat/sitio-astro` con su PR. Nada se fusiona ni se publica sin la aprobación de Teja.
