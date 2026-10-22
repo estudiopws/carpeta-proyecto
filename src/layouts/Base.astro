@@ -1,0 +1,29 @@
+---
+import '@fontsource/montserrat/700.css';
+import '@fontsource/gothic-a1/800.css';
+import '@fontsource/gothic-a1/900.css';
+import '@fontsource/aileron/400.css';
+import '@fontsource/aileron/700.css';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#143444" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

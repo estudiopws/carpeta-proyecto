@@ -1,0 +1,289 @@
+/*
+ * Carpeta Proyecto — Estudio PWS
+ * Cada <section class="page"> reproduce una página A4 del PDF (595,5 × 842,25 pt).
+ * En escritorio/tablet las medidas se expresan en "puntos del PDF" mediante
+ * --u (1 pt = 100cqw / 595.5), así la composición escala igual que el original.
+ * En móvil (≤ 700px) las páginas pasan a un flujo vertical legible.
+ */
+
+:root {
+  --ink: #332d2d;          /* texto principal */
+  --paper: #f9f9f9;        /* fondo de páginas interiores */
+  --navy: #172e4a;         /* ilustraciones */
+  --cover: #143444;        /* fondo bajo la foto de portada */
+  --backdrop: #e6e6e6;     /* fondo alrededor de las páginas (solo escritorio) */
+  --font-title: 'Gothic A1', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Aileron', 'Helvetica Neue', Arial, sans-serif;
+  --font-cover: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--backdrop);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+h1, h2, h3, p, ul { margin: 0; }
+
+.skip {
+  position: absolute; left: -9999px; top: 0;
+  background: #fff; color: var(--ink); padding: .5rem 1rem; z-index: 10;
+}
+.skip:focus { left: 1rem; top: 1rem; }
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 32px 16px;
+}
+
+/* ---------- Página A4 ---------- */
+.page {
+  --u: calc(100cqw / 595.5);
+  container-type: inline-size;
+  position: relative;
+  width: min(100%, 860px);
+  aspect-ratio: 595.5 / 842.25;
+  overflow: hidden;
+  background: var(--paper);
+  box-shadow: 0 2px 18px rgb(0 0 0 / .12);
+}
+.page > .inner { position: absolute; inset: 0; }
+
+/* Posicionamiento por coordenadas del PDF (pt). --x/--y = esquina sup. izq.,
+   --r = borde derecho (para bloques alineados a la derecha), --w = ancho. */
+.abs {
+  position: absolute;
+  left: calc(var(--x, 0) * var(--u));
+  top: calc(var(--y, 0) * var(--u));
+  width: calc(var(--w, 300) * var(--u));
+}
+.abs.right {
+  left: auto;
+  right: calc((595.5 - var(--r)) * var(--u));
+  text-align: right;
+}
+
+.title {
+  font-family: var(--font-title);
+  font-weight: 900;
+  font-size: calc(39.7 * var(--u));
+  line-height: calc(42.2 * var(--u));
+  letter-spacing: -0.0045em;
+  color: var(--ink);
+}
+.title .sub-title {
+  display: block;
+  font-size: calc(32 * var(--u));
+  line-height: calc(40.9 * var(--u));
+}
+.subtitle {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: calc(23 * var(--u));
+  line-height: calc(29.8 * var(--u));
+  color: var(--ink);
+}
+.subtitle.sm {
+  font-size: calc(20 * var(--u));
+  line-height: calc(26.1 * var(--u));
+}
+.body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: calc(18 * var(--u));
+  line-height: calc(24.8 * var(--u));
+  letter-spacing: -0.007em; /* compensa la métrica algo más ancha de Aileron (Fontsource) */
+  color: var(--ink);
+}
+.body.s17 {
+  font-size: calc(17 * var(--u));
+  line-height: calc(23.6 * var(--u));
+}
+.body p + p, .body p + ul { margin-top: calc(24.8 * var(--u)); }
+.body.s17 p + p { margin-top: calc(23.6 * var(--u)); }
+.body.s15 {
+  font-size: calc(14.9 * var(--u));
+  line-height: calc(21.1 * var(--u));
+}
+.body strong { font-weight: 700; }
+.justify { text-align: justify; }
+.abs.body { margin-top: calc(2 * var(--u)); } /* ajuste óptico frente al PDF */
+.body ul { padding-left: calc(23.4 * var(--u)); }
+.body li::marker { font-size: 1.1em; }
+
+.ill {
+  position: absolute; pointer-events: none;
+  left: calc(var(--x) * var(--u)); top: calc(var(--y) * var(--u));
+  width: calc(var(--w) * var(--u)); height: calc(var(--h) * var(--u));
+}
+.ill img { width: 100%; height: 100%; }
+
+.brand {
+  position: absolute;
+  left: calc(var(--x) * var(--u));
+  top: calc(var(--y) * var(--u));
+  width: calc(102 * var(--u));
+}
+
+/* ---------- 1. Portada ---------- */
+.p-cover { background: var(--cover); }
+.p-cover .photo {
+  position: absolute; left: 0; top: 0; width: 100%;
+  height: calc(834 * var(--u));
+  object-fit: cover;
+  object-position: 23.6% 0;
+  opacity: .7294;
+}
+.p-cover .diagonal {
+  position: absolute; inset: 0;
+  background: var(--paper);
+  clip-path: polygon(0 66.1%, 100% 95.15%, 100% 100%, 0 100%);
+}
+.p-cover h1 {
+  position: absolute;
+  right: calc((595.5 - 565) * var(--u));
+  top: calc(52 * var(--u));
+  font-family: var(--font-cover);
+  font-weight: 700;
+  font-size: calc(64 * var(--u));
+  line-height: calc(63.3 * var(--u));
+  letter-spacing: .08em;
+  margin-right: -.08em;
+  text-align: right;
+  text-transform: uppercase;
+  color: var(--paper);
+}
+.p-cover .logo {
+  position: absolute;
+  left: calc(59.54 * var(--u));
+  top: calc(742.2 * var(--u));
+  width: calc(279.7 * var(--u));
+}
+
+/* ---------- 2. ¿Quiénes somos? ---------- */
+.p-about { background: #fff; }
+.p-about .dark {
+  position: absolute; left: 0; top: calc(564.8 * var(--u));
+  width: calc(373.9 * var(--u)); bottom: 0;
+  background: var(--ink);
+  display: flex; align-items: flex-start;
+}
+.p-about .dark p {
+  margin: calc((690.3 - 564.8 - 6) * var(--u)) 0 0 calc(83.3 * var(--u));
+  font-family: var(--font-title);
+  font-weight: 900;
+  font-size: calc(32 * var(--u));
+  line-height: 1.2;
+  color: #fff;
+}
+.p-about .photos {
+  position: absolute; top: 0; bottom: 0;
+  left: calc(365.43 * var(--u)); right: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 279.3fr) minmax(0, 285fr) minmax(0, 277.95fr);
+}
+.p-about .photos img { width: 100%; height: 100%; object-fit: cover; }
+.p-about .photos img:nth-child(1) { object-position: 0 53%; }
+.p-about .photos img:nth-child(2) { object-position: 0 50%; }
+.p-about .photos img:nth-child(3) { object-position: 0 46%; }
+
+/* ---------- 9. Gracias ---------- */
+.logo-client { position: absolute; }
+.logo-client img { width: 100%; height: 100%; object-fit: contain; }
+
+/* ======================= Móvil ======================= */
+@media (max-width: 700px) {
+  main { padding: 0; gap: 0; }
+  .page {
+    width: 100%;
+    aspect-ratio: auto;
+    box-shadow: none;
+    --m: 1px;
+  }
+  .page > .inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 56px 24px 32px;
+    gap: 20px;
+  }
+  .abs, .abs.right {
+    position: static;
+    width: auto;
+  }
+  .abs.right { text-align: left; }
+  .abs.body { margin-top: 0; }
+  .title { font-size: 2.35rem; line-height: 1.08; }
+  .title .sub-title { font-size: 1.9rem; line-height: 1.2; }
+  .subtitle, .subtitle.sm { font-size: 1.3rem; line-height: 1.32; }
+  .body, .body.s17, .body.s15 { font-size: 1.0625rem; line-height: 1.5; letter-spacing: 0; }
+  .body p + p, .body p + ul, .body.s17 p + p { margin-top: 1em; }
+  .body ul { padding-left: 1.4em; }
+  .justify { text-align: left; }
+  .title br, .subtitle br { display: none; }
+
+  .ill {
+    position: relative;
+    order: 10;
+    left: auto; top: auto;
+    width: auto;
+    height: 200px;
+    margin: 8px -24px 0;
+  }
+  .ill img { width: auto; height: 100%; }
+  .ill.rocket { height: 320px; }
+  /* La regla se mantiene como borde izquierdo, igual que en el PDF */
+  #sitios-web > .inner { padding-left: 56px; }
+  .ill.ruler {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 30px; height: auto; margin: 0;
+  }
+  .ill.ruler img { width: 100%; height: 100%; object-fit: cover; object-position: right top; }
+  .ill.at-right img { margin-left: auto; }
+
+  .brand { position: static; width: 120px; order: 20; margin-top: 12px; }
+
+  /* Portada: se mantiene la composición escalada (A4) */
+  .p-cover { aspect-ratio: 595.5 / 842.25; }
+  .p-cover > .inner { position: absolute; padding: 0; display: block; }
+
+  /* Quiénes somos */
+  .p-about .dark {
+    position: static; width: auto; order: 5;
+    margin: 12px -24px 0; padding: 40px 24px;
+  }
+  .p-about .dark p { margin: 0; font-size: 2rem; }
+  .p-about .photos {
+    position: static; order: 4;
+    grid-template-rows: none !important;
+    margin: 0 -24px;
+    grid-template-rows: none;
+    grid-template-columns: repeat(3, 1fr);
+    height: 220px;
+  }
+  .p-about > .inner { padding-bottom: 0; }
+  .p-about .dark { margin-bottom: 0; }
+
+  /* Gracias */
+  .logos { order: 5; display: grid; grid-template-columns: 1fr 1fr; gap: 28px 20px; align-items: center; margin-top: 12px; }
+  .logo-client { position: static; width: auto !important; height: auto !important; }
+  .logo-client img { max-height: 110px; margin: 0 auto; }
+}
+
+@media (min-width: 701px) {
+  .logos { display: contents; }
+}
+
+.logos { list-style: none; margin: 0; padding: 0; }

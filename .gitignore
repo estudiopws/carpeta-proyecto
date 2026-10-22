@@ -1,0 +1,12 @@
+# dependencias
+node_modules/
+
+# salida de Astro
+dist/
+.astro/
+
+# entorno y sistema
+.env
+.env.*
+.DS_Store
+npm-debug.log*
