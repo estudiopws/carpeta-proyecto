@@ -22,8 +22,10 @@ import tienda from '../assets/ilustraciones/tienda.svg';
 import redes from '../assets/ilustraciones/redes.svg';
 import movil from '../assets/ilustraciones/movil.svg';
 
-// Tamaños responsive: la página mide como máximo 860px de ancho.
-const pageSizes = '(max-width: 700px) 100vw, 860px';
+// En móvil la portada sigue siendo A4 y object-fit:cover recorta una foto 3:2
+// en vertical: el bitmap tiene que medir ~2,1 veces el ancho de la ventana
+// (a 375px y 2×, unos 1575px) para no verse blanda. En escritorio, 860px.
+const pageSizes = '(max-width: 700px) 210vw, 860px';
 
 // Coordenadas (pt del PDF) de los logos de clientes en la página 9.
 const clientes = [
@@ -44,7 +46,7 @@ const clientes = [
     <!-- 1. Portada -->
     <section class="page p-cover" id="portada" aria-labelledby="portada-titulo">
       <div class="inner">
-        <Image class="photo" src={portada} alt="Persona con los brazos en alto en lo alto de un acantilado, frente a un valle de montañas entre nubes al atardecer" widths={[640, 960, 1280, 1720]} sizes={pageSizes} quality={78} loading="eager" fetchpriority="high" />
+        <Image class="photo" src={portada} alt="Persona con los brazos en alto en lo alto de un acantilado, frente a un valle de montañas entre nubes al atardecer" widths={[640, 960, 1280, 1720, 2400]} sizes={pageSizes} quality={78} loading="eager" fetchpriority="high" />
         <div class="diagonal" aria-hidden="true"></div>
         <h1 id="portada-titulo">Tu próximo<br /> proyecto<br /> vuela<br /> alto</h1>
         <Image class="logo" src={logoPws} alt="Estudio PWS" widths={[300, 600]} sizes="(max-width: 700px) 47vw, 404px" />
@@ -84,10 +86,12 @@ const clientes = [
             <li>Desarrollo de aplicaciones web.</li>
           </ul>
         </div>
-        <div class="ill at-right rocket" style="--x:390; --y:0; --w:205.5; --h:842.25" aria-hidden="true">
-          <Image src={cohete} alt="" />
+        <div class="foot">
+          <div class="ill at-right rocket" style="--x:390; --y:0; --w:205.5; --h:842.25" aria-hidden="true">
+            <Image src={cohete} alt="" />
+          </div>
+          <Image class="brand" style="--x:59.54; --y:767.67" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
         </div>
-        <Image class="brand" style="--x:59.54; --y:767.67" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
       </div>
     </section>
 
@@ -104,7 +108,9 @@ const clientes = [
         <div class="ill at-left ruler" style="--x:0; --y:0; --w:110; --h:842.25" aria-hidden="true">
           <Image src={regla} alt="" />
         </div>
-        <Image class="brand" style="--x:433.51; --y:767.67" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
+        <div class="foot">
+          <Image class="brand" style="--x:433.51; --y:767.67" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
+        </div>
       </div>
     </section>
 
@@ -118,10 +124,12 @@ const clientes = [
           <p>Tener un branding consistente en todo lo relacionado con su negocio cuenta una historia, la propia, de donde viene, y hacia donde quiere ir. Eso es lo que ven los clientes y hace que confien en uno.</p>
           <p>Nosotros podemos ayudarle a generar un branding que puede aplicar en cualquier lado, que sea prolijo, que cuente una historia y que sea facilmente reconocible y destacable entre sus competidores.</p>
         </div>
-        <div class="ill at-right" style="--x:435; --y:130; --w:160.5; --h:583" aria-hidden="true">
-          <Image src={branding} alt="" />
+        <div class="foot">
+          <div class="ill at-right" style="--x:435; --y:130; --w:160.5; --h:583" aria-hidden="true">
+            <Image src={branding} alt="" />
+          </div>
+          <Image class="brand" style="--x:59.54; --y:767.67" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
         </div>
-        <Image class="brand" style="--x:59.54; --y:767.67" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
       </div>
     </section>
 
@@ -134,10 +142,12 @@ const clientes = [
           <p>Estamos en una era dorada del comercio electrónico. Hoy hay una gran cantidad de personas que saben y por sobre todo, confían en comprar sus cosas por internet. Esto significa que quienes no tienen un E-Commerce, se está perdiendo una posibilidad muy buena de sumar ventas.</p>
           <p>Por otro lado, permitir el pago desde la pagina le genera una comodidad a los clientes para que solamente les toque esperar el envío despues de la compra.</p>
         </div>
-        <div class="ill at-left" style="--x:0; --y:265; --w:209; --h:312" aria-hidden="true">
-          <Image src={tienda} alt="" />
+        <div class="foot">
+          <div class="ill at-left" style="--x:0; --y:265; --w:209; --h:312" aria-hidden="true">
+            <Image src={tienda} alt="" />
+          </div>
+          <Image class="brand" style="--x:433.51; --y:748.35" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
         </div>
-        <Image class="brand" style="--x:433.51; --y:748.35" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
       </div>
     </section>
 
@@ -152,10 +162,12 @@ const clientes = [
           <p>También somos cuidadosos de seguir el branding de su empresa, para que cada publicación tenga una clara identidad con su marca.</p>
           <p>Mientras usted se ocupa de su negocio, nosotros nos encargamos de sus redes sociales.</p>
         </div>
-        <div class="ill at-right" style="--x:435; --y:140; --w:160.5; --h:577" aria-hidden="true">
-          <Image src={redes} alt="" />
+        <div class="foot">
+          <div class="ill at-right" style="--x:435; --y:140; --w:160.5; --h:577" aria-hidden="true">
+            <Image src={redes} alt="" />
+          </div>
+          <Image class="brand" style="--x:59.54; --y:759.13" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
         </div>
-        <Image class="brand" style="--x:59.54; --y:759.13" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
       </div>
     </section>
 
@@ -169,10 +181,12 @@ const clientes = [
           <p>Es muy difícil encontrar un software que se acople perfectamente a sus necesidades y aún si lo encuentra probablemente requiera ajustes que pueden demorar tiempo o necesitar recursos que no tiene.</p>
           <p>Con nosotros usted puede tener tu propio software a medida, para que pueda gestionar la relación de su negocio con sus empleados, sus proveedores, su stock e incluso sus clientes.</p>
         </div>
-        <div class="ill at-left" style="--x:0; --y:152; --w:152; --h:538" aria-hidden="true">
-          <Image src={movil} alt="" />
+        <div class="foot">
+          <div class="ill at-left" style="--x:0; --y:152; --w:152; --h:538" aria-hidden="true">
+            <Image src={movil} alt="" />
+          </div>
+          <Image class="brand" style="--x:433.51; --y:748.35" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
         </div>
-        <Image class="brand" style="--x:433.51; --y:748.35" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
       </div>
     </section>
 
@@ -184,11 +198,13 @@ const clientes = [
         <ul class="logos" aria-label="Clientes">
           {clientes.map((c) => (
             <li class="logo-client" style={`left: calc(${c.x} * var(--u)); top: calc(${c.y} * var(--u)); width: calc(${c.w} * var(--u)); height: calc(${c.h} * var(--u));`}>
-              <Image src={c.src} alt={c.alt} widths={[240, 480]} sizes="(max-width: 700px) 45vw, 330px" />
+              <Image src={c.src} alt={c.alt} widths={[240, 480, 720]} sizes="(max-width: 700px) 46vw, 330px" />
             </li>
           ))}
         </ul>
-        <Image class="brand" style="--x:433.51; --y:767.67" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
+        <div class="foot">
+          <Image class="brand" style="--x:433.51; --y:767.67" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
+        </div>
       </div>
     </section>
   </main>
