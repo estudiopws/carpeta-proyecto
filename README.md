@@ -40,10 +40,10 @@ docs/BITACORA.md            # decisiones del proyecto
 
 El sitio se publica en Cloudflare Pages. El único camino de despliegue es GitHub Actions (`.github/workflows/deploy.yml`). El DNS de estudiopws.com sigue en Namecheap, así que el dominio propio es un CNAME hacia Pages (un dominio de Workers exigiría la zona en Cloudflare).
 
-- En cada **pull request** a `main`: solo `npm ci` + `npm run build` (comprobación, sin desplegar).
+- En cada **pull request** a `main`: `npm ci` + `npm run build`. Si el PR es de este repositorio (no de un fork), además se publica una **preview** con `pages deploy dist --project-name=carpeta-proyecto --branch=<rama del PR>`. La URL y el commit quedan en un comentario del PR. Hace falta el entorno de GitHub `preview` con los secretos `CLOUDFLARE_API_TOKEN` y `CLOUDFLARE_ACCOUNT_ID` (los de `prod` no valen aquí: `prod` solo admite la rama `main`). La URL `*.pages.dev` es pública; el sitio lleva `noindex` y, si se quiere, se puede cerrar con Cloudflare Access.
 - En cada **push a `main`** (al fusionar un PR) o lanzándolo a mano (**workflow_dispatch**): el job usa el entorno `prod` y publica `dist/` con `cloudflare/wrangler-action@v3` (`pages deploy dist --project-name=carpeta-proyecto --branch=main`).
 
-El proyecto `carpeta-proyecto` ya existe (Direct Upload, rama de producción `main`). Los secretos `CLOUDFLARE_API_TOKEN` y `CLOUDFLARE_ACCOUNT_ID` están en el GitHub Environment `prod`.
+El proyecto `carpeta-proyecto` ya existe (Direct Upload, rama de producción `main`). Los secretos de producción están en el GitHub Environment `prod`. Las previews usan el entorno `preview`.
 
 - Producción: https://carpeta-proyecto.pages.dev
 - Dominio propio: https://carpeta.estudiopws.com, en cuanto en Namecheap se añada **solo** este registro: CNAME `carpeta` → `carpeta-proyecto.pages.dev`. No modificar los MX, SPF ni DKIM de Private Email.
