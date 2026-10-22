@@ -3,7 +3,8 @@
  * Cada <section class="page"> reproduce una página A4 del PDF (595,5 × 842,25 pt).
  * En escritorio/tablet las medidas se expresan en "puntos del PDF" mediante
  * --u (1 pt = 100cqw / 595.5), así la composición escala igual que el original.
- * En móvil (≤ 700px) las páginas pasan a un flujo vertical legible.
+ * En móvil (≤ 700px) el texto pasa a una columna y la ilustración
+ * conserva la escala del PDF, sangrada por el mismo borde de página.
  */
 
 :root {
@@ -33,6 +34,15 @@ body {
 
 img { display: block; max-width: 100%; height: auto; }
 h1, h2, h3, p, ul { margin: 0; }
+
+::selection {
+  background: var(--navy);
+  color: var(--paper);
+}
+:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: 3px;
+}
 
 .skip {
   position: absolute; left: -9999px; top: 0;
@@ -137,6 +147,19 @@ main {
   width: calc(102 * var(--u));
 }
 
+/* En escritorio el pie no genera caja: ilustración y marca siguen
+   posicionadas respecto a la hoja. En móvil se convierte en fila. */
+.foot { display: contents; }
+
+/* La caja del título (380 pt) entra 4,6 pt en el dibujo. El texto real
+   cabe en ~355 pt; limitar la caja lo separa sin mover los glifos. */
+@media (min-width: 701px) {
+  #branding .title {
+    width: max-content;
+    max-width: calc(367 * var(--u));
+  }
+}
+
 /* ---------- 1. Portada ---------- */
 .p-cover { background: var(--cover); }
 .p-cover .photo {
@@ -210,14 +233,21 @@ main {
     width: 100%;
     aspect-ratio: auto;
     box-shadow: none;
-    --m: 1px;
+    overflow: hidden;
+  }
+  /* Las hojas de papel comparten fondo: un filete marca el cambio de sección. */
+  .page + .page:not(.p-about) {
+    box-shadow: inset 0 1px 0 rgb(51 45 45 / .14);
   }
   .page > .inner {
+    --pad-x: max(24px, env(safe-area-inset-left, 0px));
+    --pad-r: max(24px, env(safe-area-inset-right, 0px));
     position: relative;
     display: flex;
     flex-direction: column;
-    padding: 56px 24px 32px;
-    gap: 20px;
+    align-items: stretch;
+    gap: 0;
+    padding: 48px var(--pad-r) max(32px, env(safe-area-inset-bottom, 0px)) var(--pad-x);
   }
   .abs, .abs.right {
     position: static;
@@ -225,59 +255,138 @@ main {
   }
   .abs.right { text-align: left; }
   .abs.body { margin-top: 0; }
-  .title { font-size: 2.35rem; line-height: 1.08; }
-  .title .sub-title { font-size: 1.9rem; line-height: 1.2; }
-  .subtitle, .subtitle.sm { font-size: 1.3rem; line-height: 1.32; }
+  .title {
+    font-size: 2.35rem;
+    line-height: 1.08;
+    margin-bottom: 12px;
+    text-wrap: balance;
+  }
+  .title .sub-title { font-size: 1.9rem; line-height: 1.15; }
+  .subtitle, .subtitle.sm {
+    font-size: 1.3rem;
+    line-height: 1.32;
+    margin-bottom: 24px;
+    text-wrap: balance;
+  }
   .body, .body.s17, .body.s15 { font-size: 1.0625rem; line-height: 1.5; letter-spacing: 0; }
   .body p + p, .body p + ul, .body.s17 p + p { margin-top: 1em; }
   .body ul { padding-left: 1.4em; }
   .justify { text-align: left; }
   .title br, .subtitle br { display: none; }
 
+  /* Firma: marca a un lado, ilustración a la escala del PDF sangrando
+     por el borde contrario (el mismo recorte que la hoja impresa). */
+  .foot {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    order: 10;
+    margin-top: 32px;
+    margin-left: calc(var(--pad-x) * -1);
+    margin-right: calc(var(--pad-r) * -1);
+  }
+  .foot .brand {
+    position: static;
+    width: 120px;
+    height: auto;
+    order: 1;
+    margin: 0 24px 10px;
+    flex: none;
+  }
+  .foot .ill.at-left { order: 0; }
+  .foot .ill.at-right { order: 2; }
+  #sitios-web .foot,
+  #gracias .foot { justify-content: flex-end; }
+  /* La aleta del cohete ocupa la esquina inferior: la marca va arriba, en el hueco. */
+  #servicios .foot { align-items: flex-start; }
+  #servicios .foot .brand { margin-top: 12px; margin-bottom: 0; }
+
   .ill {
     position: relative;
-    order: 10;
-    left: auto; top: auto;
-    width: auto;
-    height: 200px;
-    margin: 8px -24px 0;
+    left: auto;
+    top: auto;
+    height: auto;
+    width: calc(var(--w) * 100cqw / 595.5);
+    max-width: calc(100cqw - 176px);
+    min-width: 0;
+    margin: 0;
+    flex: 0 1 auto;
   }
-  .ill img { width: auto; height: 100%; }
-  .ill.rocket { height: 320px; }
-  /* La regla se mantiene como borde izquierdo, igual que en el PDF */
-  #sitios-web > .inner { padding-left: 56px; }
-  .ill.ruler {
-    position: absolute; left: 0; top: 0; bottom: 0;
-    width: 30px; height: auto; margin: 0;
-  }
-  .ill.ruler img { width: 100%; height: 100%; object-fit: cover; object-position: right top; }
-  .ill.at-right img { margin-left: auto; }
+  .ill img { width: 100%; height: auto; max-width: none; }
 
-  .brand { position: static; width: 120px; order: 20; margin-top: 12px; }
+  /* La regla sigue siendo el canto izquierdo; 44px enseña las marcas. */
+  #sitios-web > .inner {
+    padding-left: max(68px, calc(env(safe-area-inset-left, 0px) + 52px));
+  }
+  .ill.ruler {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 44px;
+    max-width: none;
+    height: auto;
+    margin: 0;
+  }
+  .ill.ruler img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right center;
+  }
+
+  /* El cuerpo del cohete va pegado al borde y, a escala del PDF, es una tira.
+     En el pie se enseña la aleta y las ventanas, más grandes, cortadas por ese borde. */
+  .ill.rocket {
+    position: relative;
+    align-self: flex-end;
+    flex: none;
+    width: min(200px, calc(100cqw - 200px));
+    max-width: calc(100cqw - 200px);
+    height: 280px;
+    overflow: hidden;
+  }
+  .ill.rocket img {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: right 74%;
+  }
 
   /* Portada: se mantiene la composición escalada (A4) */
   .p-cover { aspect-ratio: 595.5 / 842.25; }
   .p-cover > .inner { position: absolute; padding: 0; display: block; }
 
   /* Quiénes somos */
-  .p-about .dark {
-    position: static; width: auto; order: 5;
-    margin: 12px -24px 0; padding: 40px 24px;
-  }
-  .p-about .dark p { margin: 0; font-size: 2rem; }
+  .p-about > .inner { padding-bottom: 0; }
   .p-about .photos {
-    position: static; order: 4;
-    grid-template-rows: none !important;
-    margin: 0 -24px;
+    position: static;
+    order: 4;
     grid-template-rows: none;
     grid-template-columns: repeat(3, 1fr);
     height: 220px;
+    margin: 32px calc(var(--pad-r) * -1) 0 calc(var(--pad-x) * -1);
   }
-  .p-about > .inner { padding-bottom: 0; }
-  .p-about .dark { margin-bottom: 0; }
+  .p-about .dark {
+    position: static;
+    width: auto;
+    order: 5;
+    margin: 0 calc(var(--pad-r) * -1) 0 calc(var(--pad-x) * -1);
+    padding: 40px var(--pad-r) max(40px, env(safe-area-inset-bottom, 0px)) var(--pad-x);
+  }
+  .p-about .dark p { margin: 0; font-size: 2rem; }
 
   /* Gracias */
-  .logos { order: 5; display: grid; grid-template-columns: 1fr 1fr; gap: 28px 20px; align-items: center; margin-top: 12px; }
+  .logos {
+    order: 5;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 20px;
+    align-items: center;
+    margin-top: 8px;
+  }
   .logo-client { position: static; width: auto !important; height: auto !important; }
   .logo-client img { max-height: 110px; margin: 0 auto; }
 }
