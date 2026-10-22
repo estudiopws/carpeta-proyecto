@@ -38,17 +38,16 @@ docs/BITACORA.md            # decisiones del proyecto
 
 ## Despliegue (Cloudflare Pages)
 
-El workflow `.github/workflows/deploy.yml`:
+El sitio se publica en Cloudflare Pages. El único camino de despliegue es GitHub Actions (`.github/workflows/deploy.yml`). El DNS de estudiopws.com sigue en Namecheap, así que el dominio propio es un CNAME hacia Pages (un dominio de Workers exigiría la zona en Cloudflare).
 
 - En cada **pull request** a `main`: solo `npm ci` + `npm run build` (comprobación, sin desplegar).
-- En cada **push a `main`** (es decir, al fusionar un PR) o lanzándolo a mano (**workflow_dispatch**): compila y publica `dist/` en Cloudflare Pages con `cloudflare/wrangler-action@v3` (`pages deploy dist --project-name=carpeta-proyecto --branch=main`).
+- En cada **push a `main`** (al fusionar un PR) o lanzándolo a mano (**workflow_dispatch**): el job usa el entorno `prod` y publica `dist/` con `cloudflare/wrangler-action@v3` (`pages deploy dist --project-name=carpeta-proyecto --branch=main`).
 
-Hasta que se configure lo siguiente, el job de despliegue fallará (el build de PR sí funciona). Configuración pendiente (la hace Teja):
+El proyecto `carpeta-proyecto` ya existe (Direct Upload, rama de producción `main`). Los secretos `CLOUDFLARE_API_TOKEN` y `CLOUDFLARE_ACCOUNT_ID` están en el GitHub Environment `prod`.
 
-1. **Proyecto de Pages**: en Cloudflare → *Workers & Pages* → *Create* → *Pages* → *Direct Upload*, crear un proyecto llamado `carpeta-proyecto`. (También puede dejarse que wrangler lo cree en el primer despliegue, si el token tiene permisos.)
-2. **API token**: en Cloudflare → *My Profile* → *API Tokens* → *Create Token* → plantilla personalizada con el permiso **Account · Cloudflare Pages · Edit**, limitado a la cuenta del estudio.
-3. **Secretos del entorno `prod`** (GitHub → *Settings* → *Environments* → `prod`; ya configurados por Teja el 22/10/2026):
-   - `CLOUDFLARE_API_TOKEN`: el token del paso 2.
-   - `CLOUDFLARE_ACCOUNT_ID`: el *Account ID* (aparece en la portada del panel de Cloudflare).
+- Producción: https://carpeta-proyecto.pages.dev
+- Dominio propio: https://carpeta.estudiopws.com, en cuanto en Namecheap se añada **solo** este registro: CNAME `carpeta` → `carpeta-proyecto.pages.dev`. No modificar los MX, SPF ni DKIM de Private Email.
+
+Quedó conectado desde el panel un Worker temporal (`https://carpeta-proyecto.ezequiel-tejada.workers.dev`). Cuando Pages esté sirviendo el sitio, hay que desconectarlo o eliminarlo en Cloudflare para que cada push a `main` no despliegue dos veces.
 
 Recomendación: como el sitio es solo para clientes, valorar proteger la URL con Cloudflare Access.
