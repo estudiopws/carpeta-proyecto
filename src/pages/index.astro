@@ -6,10 +6,15 @@ import portada from '../assets/fotos/portada-montana.jpg';
 import equipoReunion from '../assets/fotos/equipo-reunion.jpg';
 import equipoMesa from '../assets/fotos/equipo-mesa.jpg';
 import equipoTrabajo from '../assets/fotos/equipo-trabajo.jpg';
+import weflickCaptura from '../assets/fotos/weflick-captura.jpg';
+import cartaYaCaptura from '../assets/fotos/carta-ya-captura.jpg';
+import ultrastockCaptura from '../assets/fotos/ultrastock-captura.png';
 
 import logoPws from '../assets/logos/estudio-pws.png';
+import weflick from '../assets/logos/weflick.png';
+import cartaYa from '../assets/logos/carta-ya.png';
+import ultraMoviles from '../assets/logos/ultra-moviles.png';
 import grupoHorama from '../assets/logos/grupo-horama.png';
-import residencia from '../assets/logos/residencia-asesoramiento.png';
 import calaveras from '../assets/logos/calaveras.png';
 import lasCalas from '../assets/logos/las-calas.png';
 import farago from '../assets/logos/martillera-farago.png';
@@ -27,19 +32,20 @@ import movil from '../assets/ilustraciones/movil.svg';
 // (a 375px y 2×, unos 1575px) para no verse blanda. En escritorio, 860px.
 const pageSizes = '(max-width: 700px) 210vw, 860px';
 
-// Coordenadas (pt del PDF) de los logos de clientes en la página 9.
 const clientes = [
-  { src: grupoHorama, alt: 'Grupo Horama', x: 75.87, y: 273.33, w: 187.5, h: 132 },
-  { src: residencia, alt: 'Residencia y asesoramiento', x: 355.21, y: 282.95, w: 132, h: 131.2 },
-  { src: lasCalas, alt: 'Las Calas', x: 59.54, y: 494.25, w: 220.4, h: 54.7 },
-  { src: calaveras, alt: 'Calaveras Store & Delivery', x: 315.84, y: 449.48, w: 210.7, h: 144 },
-  { src: farago, alt: 'Martillera Faragó', x: 82.44, y: 607.83, w: 174.7, h: 123 },
-  { src: puraMana, alt: 'Pura Maña Ideas, Arte + Diseño', x: 306.64, y: 654.99, w: 228.7, h: 75.7 },
+  { src: weflick, alt: 'WeFlick', note: '' },
+  { src: cartaYa, alt: 'Carta Ya', note: '' },
+  { src: ultraMoviles, alt: 'Ultra Móviles', note: 'UltraStock' },
+  { src: grupoHorama, alt: 'Grupo Horama', note: '' },
+  { src: lasCalas, alt: 'Las Calas', note: '' },
+  { src: calaveras, alt: 'Calaveras Store & Delivery', note: '' },
+  { src: farago, alt: 'Martillera Faragó', note: '' },
+  { src: puraMana, alt: 'Pura Maña Ideas', note: '' },
 ];
 ---
 <Base
   title="Estudio PWS · Carpeta Proyecto"
-  description="Carpeta de proyecto de Estudio PWS: desarrollo de sitios web, branding, e-commerce, social media y aplicaciones web."
+  description="Estudio PWS, en Madrid: webs, tiendas online y aplicaciones a medida para pymes y autónomos."
 >
   <a class="skip" href="#quienes-somos">Saltar al contenido</a>
   <main>
@@ -49,41 +55,40 @@ const clientes = [
         <Image class="photo" src={portada} alt="Persona con los brazos en alto en lo alto de un acantilado, frente a un valle de montañas entre nubes al atardecer" widths={[640, 960, 1280, 1720, 2400]} sizes={pageSizes} quality={78} loading="eager" fetchpriority="high" />
         <div class="diagonal" aria-hidden="true"></div>
         <h1 id="portada-titulo">Tu próximo<br /> proyecto<br /> vuela<br /> alto</h1>
+        <p class="lede">Webs, tiendas online y aplicaciones a medida para pymes y autónomos.</p>
         <Image class="logo" src={logoPws} alt="Estudio PWS" widths={[300, 600]} sizes="(max-width: 700px) 47vw, 404px" />
+        <p class="place">Madrid</p>
       </div>
     </section>
 
     <!-- 2. ¿Quiénes somos? -->
     <section class="page p-about" id="quienes-somos" aria-labelledby="quienes-titulo">
       <div class="inner">
-        <h2 id="quienes-titulo" class="abs title" style="--x:49; --y:154.2; --w:300">¿Quienes<br /> somos?</h2>
-        <h3 class="abs subtitle sm" style="--x:49; --y:262.6; --w:300">Un equipo que juega en<br /> toda la cancha.</h3>
-        <div class="abs body s15" style="--x:49; --y:332.5; --w:238">
-          <p>Somos desarrolladores, diseñadores, community managers (y más) que trabajamos en y para todo el mundo.</p>
+        <h2 id="quienes-titulo" class="abs title" style="--x:49; --y:118; --w:310">¿Quiénes somos?</h2>
+        <div class="abs body" style="--x:49; --y:230; --w:300">
+          <p>Somos Estudio PWS, un equipo de desarrollo, diseño y redes sociales con base en Madrid. Al frente está Ezequiel Tejada, desarrollador Angular con más de 10 años de experiencia. Llevamos cada proyecto de principio a fin y siempre hablas con quien trabaja en él, sin intermediarios ni cuentas que pasan de mano en mano.</p>
         </div>
         <div class="photos">
           <Image src={equipoReunion} alt="Equipo reunido alrededor de una mesa trabajando con portátiles" widths={[320, 640, 960]} sizes="(max-width: 700px) 33vw, 332px" quality={78} />
           <Image src={equipoMesa} alt="Vista cenital de una mesa de madera con portátiles, tableta, móvil, cafés y notas" widths={[320, 640, 960]} sizes="(max-width: 700px) 33vw, 332px" quality={78} />
           <Image src={equipoTrabajo} alt="Grupo de personas de pie revisando papeles sobre una mesa en una oficina" widths={[320, 640, 960]} sizes="(max-width: 700px) 33vw, 332px" quality={78} />
         </div>
-        <div class="dark"><p>#TeamWork</p></div>
+        <div class="dark"><p>Madrid</p></div>
       </div>
     </section>
 
-    <!-- 3. ¿Qué servicios ofrecemos? -->
-    <section class="page" id="servicios" aria-labelledby="servicios-titulo">
+    <!-- 3. ¿Qué hacemos? -->
+    <section class="page" id="que-hacemos" aria-labelledby="hacemos-titulo">
       <div class="inner">
-        <h2 id="servicios-titulo" class="abs title" style="--x:59.6; --y:79.8; --w:330">¿Que servicios<br /> ofrecemos?</h2>
-        <h3 class="abs subtitle" style="--x:59.7; --y:218.7; --w:330">Podemos trabajar juntos en<br /> cualquier etapa de su<br /> negocio</h3>
-        <div class="abs body" style="--x:59.6; --y:327.5; --w:327">
-          <p>Creemos en el software y en internet como la nueva plataforma para el crecimiento de cualquier idea, cualquier emprendimiento, cualquier negocio.</p>
-          <p>Por eso nosotros queremos aportar nuestro granito de arena por medio de:</p>
+        <h2 id="hacemos-titulo" class="abs title" style="--x:59.6; --y:80; --w:320">¿Qué hacemos?</h2>
+        <div class="abs body" style="--x:59.6; --y:175; --w:318">
+          <p>Da igual que estés abriendo tu negocio o que lleves años con él y necesites una herramienta mejor. Podemos ayudarte con:</p>
           <ul>
-            <li>Desarrollo de sitios web (Institucionales, Landing Pages, Product Pages)</li>
-            <li>Branding (identidad institucional)</li>
-            <li>E-Commerce</li>
-            <li>Social Media</li>
-            <li>Desarrollo de aplicaciones web.</li>
+            <li>Webs corporativas y landing pages</li>
+            <li>Tiendas online</li>
+            <li>Aplicaciones web a medida</li>
+            <li>Identidad de marca</li>
+            <li>Redes sociales</li>
           </ul>
         </div>
         <div class="foot">
@@ -95,15 +100,32 @@ const clientes = [
       </div>
     </section>
 
-    <!-- 4. Desarrollo de sitios web -->
-    <section class="page" id="sitios-web" aria-labelledby="web-titulo">
+    <!-- 4. Aplicaciones web a medida (justo después de Qué hacemos) -->
+    <section class="page" id="aplicaciones-web" aria-labelledby="apps-titulo">
       <div class="inner">
-        <h2 id="web-titulo" class="abs right title" style="--r:536.2; --y:79.8; --w:330">Desarrollo de<br /> sitios web</h2>
-        <h3 class="abs right subtitle" style="--r:536.2; --y:199.5; --w:330">Su lugar, en cualquier lugar</h3>
-        <div class="abs body s17 justify" style="--x:204.6; --y:247; --w:331.4">
-          <p>Sea del rubro que sea, el tener un espacio propio en internet es crítico para cualquier negocio. Un espacio donde muestre quien es, que valores tiene y porque coinciden con los de su cliente.</p>
-          <p>Es fundamental que esté acompañado por un equipo que conozca bien las herramientas que mejor se adapten a usted y a sus necesidades.</p>
-          <p>Tenga su <strong>Sitio Institucional</strong> donde puede presentar su empresa, su marca, sus valores a sus clientes. O tal vez una <strong>Landing Page</strong> donde puede convertir visitantes en clientes. Tambien <strong>Product Pages</strong> donde solo se enfoca en su producto estrella. Sea cual fuese el caso, estos y muchos mas, nosotros estamos capacitados para llevar su proyecto a cabo.</p>
+        <h2 id="apps-titulo" class="abs right title" style="--r:536.2; --y:72; --w:360">Aplicaciones<br /> web a medida</h2>
+        <h3 class="abs right subtitle sm" style="--r:536.2; --y:196; --w:320">Software que se adapta a tu forma de trabajar</h3>
+        <div class="abs body" style="--x:210; --y:290; --w:320">
+          <p>Cada empresa tiene su manera de hacer las cosas y los programas genéricos casi nunca encajan del todo. Al final te adaptas tú a la herramienta o pagas ajustes que tardan meses.</p>
+          <p>Desarrollamos aplicaciones web a medida con Angular para gestionar pedidos, stock, clientes, proveedores o personal. Las usas desde el navegador, en el ordenador o en el móvil, y crecen contigo cuando cambia tu negocio.</p>
+        </div>
+        <div class="foot">
+          <div class="ill at-left phone" style="--x:0; --y:152; --w:152; --h:538" aria-hidden="true">
+            <Image src={movil} alt="" />
+          </div>
+          <Image class="brand" style="--x:433.51; --y:748.35" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Desarrollo web -->
+    <section class="page" id="desarrollo-web" aria-labelledby="web-titulo">
+      <div class="inner">
+        <h2 id="web-titulo" class="abs right title" style="--r:536.2; --y:80; --w:330">Desarrollo web</h2>
+        <h3 class="abs right subtitle" style="--r:536.2; --y:160; --w:330">Una web que explique bien lo que haces</h3>
+        <div class="abs body" style="--x:200; --y:270; --w:330">
+          <p>Antes de llamarte, casi todos tus clientes te buscan en Google. Tu web tiene que contarles rápido quién eres, qué ofreces y cómo contactar contigo.</p>
+          <p>Hacemos webs corporativas para presentar tu empresa, landing pages para captar contactos en una campaña concreta y páginas de producto para lo que más vendes. Las entregamos adaptadas al móvil.</p>
         </div>
         <div class="ill at-left ruler" style="--x:0; --y:0; --w:110; --h:842.25" aria-hidden="true">
           <Image src={regla} alt="" />
@@ -114,36 +136,16 @@ const clientes = [
       </div>
     </section>
 
-    <!-- 5. Branding -->
-    <section class="page" id="branding" aria-labelledby="branding-titulo">
+    <!-- 6. Tienda online -->
+    <section class="page" id="tienda-online" aria-labelledby="tienda-titulo">
       <div class="inner">
-        <h2 id="branding-titulo" class="abs title" style="--x:59.6; --y:84; --w:380">Branding <span class="sub-title">Identidad institucional</span></h2>
-        <h3 class="abs subtitle" style="--x:59.7; --y:206.2; --w:345">Que todos sepan quien habla,<br /> cuando usted comunica.</h3>
-        <div class="abs body" style="--x:59.6; --y:284.3; --w:333">
-          <p>Sabemos que una marca bien establecida es la que mejor transmite sus valores y la cual es mejor identificada por potenciales clientes.</p>
-          <p>Tener un branding consistente en todo lo relacionado con su negocio cuenta una historia, la propia, de donde viene, y hacia donde quiere ir. Eso es lo que ven los clientes y hace que confien en uno.</p>
-          <p>Nosotros podemos ayudarle a generar un branding que puede aplicar en cualquier lado, que sea prolijo, que cuente una historia y que sea facilmente reconocible y destacable entre sus competidores.</p>
+        <h2 id="tienda-titulo" class="abs right title" style="--r:536.2; --y:80; --w:330">Tienda online</h2>
+        <h3 class="abs right subtitle sm" style="--r:536.2; --y:160; --w:310">Tu tienda, abierta las 24 horas</h3>
+        <div class="abs body" style="--x:236; --y:250; --w:294">
+          <p>Cada vez más gente compra por internet, también a negocios pequeños y de barrio. Si todavía no vendes online, te estás dejando ventas.</p>
         </div>
         <div class="foot">
-          <div class="ill at-right" style="--x:435; --y:130; --w:160.5; --h:583" aria-hidden="true">
-            <Image src={branding} alt="" />
-          </div>
-          <Image class="brand" style="--x:59.54; --y:767.67" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
-        </div>
-      </div>
-    </section>
-
-    <!-- 6. E-Commerce -->
-    <section class="page" id="e-commerce" aria-labelledby="ecommerce-titulo">
-      <div class="inner">
-        <h2 id="ecommerce-titulo" class="abs right title" style="--r:536.2; --y:81.9; --w:330">E-Commerce</h2>
-        <h3 class="abs right subtitle sm" style="--r:536.2; --y:256.8; --w:330">Su vidriera, sus productos 24/7</h3>
-        <div class="abs body s17 justify" style="--x:225.1; --y:300.2; --w:311">
-          <p>Estamos en una era dorada del comercio electrónico. Hoy hay una gran cantidad de personas que saben y por sobre todo, confían en comprar sus cosas por internet. Esto significa que quienes no tienen un E-Commerce, se está perdiendo una posibilidad muy buena de sumar ventas.</p>
-          <p>Por otro lado, permitir el pago desde la pagina le genera una comodidad a los clientes para que solamente les toque esperar el envío despues de la compra.</p>
-        </div>
-        <div class="foot">
-          <div class="ill at-left" style="--x:0; --y:265; --w:209; --h:312" aria-hidden="true">
+          <div class="ill at-left shop" style="--x:0; --y:265; --w:209; --h:312" aria-hidden="true">
             <Image src={tienda} alt="" />
           </div>
           <Image class="brand" style="--x:433.51; --y:748.35" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
@@ -151,19 +153,33 @@ const clientes = [
       </div>
     </section>
 
-    <!-- 7. Social Media -->
-    <section class="page" id="social-media" aria-labelledby="social-titulo">
+    <!-- 7. Identidad de marca -->
+    <section class="page" id="identidad" aria-labelledby="identidad-titulo">
       <div class="inner">
-        <h2 id="social-titulo" class="abs title" style="--x:59.6; --y:92.7; --w:330">Social Media</h2>
-        <h3 class="abs subtitle" style="--x:59.7; --y:150.3; --w:330">Esté cerca de sus clientes,<br /> donde quiera que estén.</h3>
-        <div class="abs body" style="--x:59.6; --y:228.5; --w:327">
-          <p>Las redes sociales son hoy en día en la mayor vidriera que tiene para mostrar su negocio. Por eso disponemos de un equipo que va a generarle contenidos periódicamente y que lo asista en el manejo de sus cuentas.</p>
-          <p>Seguimos las mejores prácticas, nos interiorizamos en sus clientes y apuntamos a generar contenido que les sea de interés.</p>
-          <p>También somos cuidadosos de seguir el branding de su empresa, para que cada publicación tenga una clara identidad con su marca.</p>
-          <p>Mientras usted se ocupa de su negocio, nosotros nos encargamos de sus redes sociales.</p>
+        <h2 id="identidad-titulo" class="abs title" style="--x:59.6; --y:80; --w:360">Identidad de marca <span class="sub-title">Branding</span></h2>
+        <h3 class="abs subtitle" style="--x:59.6; --y:230; --w:340">Que se sepa quién habla cuando comunicas</h3>
+        <div class="abs body" style="--x:59.6; --y:330; --w:330">
+          <p>Una marca reconocible da confianza antes incluso de que hables con el cliente.</p>
         </div>
         <div class="foot">
-          <div class="ill at-right" style="--x:435; --y:140; --w:160.5; --h:577" aria-hidden="true">
+          <div class="ill at-right blocks" style="--x:435; --y:130; --w:160.5; --h:583" aria-hidden="true">
+            <Image src={branding} alt="" />
+          </div>
+          <Image class="brand" style="--x:59.54; --y:767.67" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Redes sociales -->
+    <section class="page" id="redes" aria-labelledby="redes-titulo">
+      <div class="inner">
+        <h2 id="redes-titulo" class="abs title" style="--x:59.6; --y:80; --w:330">Redes sociales</h2>
+        <h3 class="abs subtitle" style="--x:59.6; --y:150; --w:340">Cerca de tus clientes, también en redes</h3>
+        <div class="abs body" style="--x:59.6; --y:250; --w:320">
+          <p>Muchas veces lo primero que ve un cliente nuevo es tu perfil de Instagram. Si no tienes tiempo de publicar, nuestro equipo se encarga: preparamos contigo un calendario, publicamos con regularidad y cuidamos que cada publicación vaya con tu imagen de marca. Tú te dedicas a tu negocio.</p>
+        </div>
+        <div class="foot">
+          <div class="ill at-right bubbles" style="--x:435; --y:140; --w:160.5; --h:577" aria-hidden="true">
             <Image src={redes} alt="" />
           </div>
           <Image class="brand" style="--x:59.54; --y:759.13" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
@@ -171,40 +187,132 @@ const clientes = [
       </div>
     </section>
 
-    <!-- 8. Aplicaciones Web -->
-    <section class="page" id="aplicaciones-web" aria-labelledby="apps-titulo">
+    <!-- 9. Proyectos destacados -->
+    <section class="page sheet project" id="proyectos" aria-labelledby="proyectos-titulo">
       <div class="inner">
-        <h2 id="apps-titulo" class="abs right title" style="--r:536.2; --y:81.9; --w:380">Aplicaciones Web</h2>
-        <h3 class="abs right subtitle sm" style="--r:536.2; --y:182.7; --w:330">Agilice procesos y mejore la<br /> eficiencia de su negocio.</h3>
-        <div class="abs body s17 justify" style="--x:225.1; --y:252.7; --w:311">
-          <p>Cada empresa tiene métodos y procesos propios, que fueron desarrollándose durante mucho tiempo a base de prueba y error.</p>
-          <p>Es muy difícil encontrar un software que se acople perfectamente a sus necesidades y aún si lo encuentra probablemente requiera ajustes que pueden demorar tiempo o necesitar recursos que no tiene.</p>
-          <p>Con nosotros usted puede tener tu propio software a medida, para que pueda gestionar la relación de su negocio con sus empleados, sus proveedores, su stock e incluso sus clientes.</p>
-        </div>
-        <div class="foot">
-          <div class="ill at-left" style="--x:0; --y:152; --w:152; --h:538" aria-hidden="true">
-            <Image src={movil} alt="" />
-          </div>
-          <Image class="brand" style="--x:433.51; --y:748.35" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
-        </div>
+        <h2 id="proyectos-titulo" class="title">Proyectos destacados</h2>
+        <h3 class="project-name">WeFlick</h3>
+        <p class="sector">Startup de Barcelona que vende productos con tecnología NFC (tarjetas personales y soluciones para empresas y comercios) para compartir información al instante acercando el móvil.</p>
+        <figure class="shot">
+          <a href="https://weflick.es/" target="_blank" rel="noopener noreferrer">
+            <Image src={weflickCaptura} alt="Página de inicio de weflick.es" widths={[640, 960, 1440]} sizes="(max-width: 700px) 100vw, 860px" quality={80} />
+          </a>
+        </figure>
+        <dl class="facts">
+          <dt>Qué necesitaba</dt>
+          <dd>Un desarrollo a medida de su aplicación.</dd>
+          <dt>Qué hicimos</dt>
+          <dd>Desarrollamos la plataforma web en la que sus clientes gestionan sus perfiles y WeFlick gestiona el stock de productos.</dd>
+          <dt>Resultado</dt>
+          <dd>Hoy la usan cientos de clientes para ofrecer a los suyos una forma innovadora de conectarse.</dd>
+        </dl>
+        <Image class="mark" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
       </div>
     </section>
 
-    <!-- 9. Gracias por confiar -->
-    <section class="page" id="gracias" aria-labelledby="gracias-titulo">
+    <section class="page sheet project" id="carta-ya" aria-labelledby="carta-ya-titulo">
       <div class="inner">
-        <h2 id="gracias-titulo" class="abs right title" style="--r:536.2; --y:81.9; --w:400">Gracias por confiar</h2>
-        <h3 class="abs right subtitle sm" style="--r:536.2; --y:147.7; --w:330">Con estas empresas y marcas<br /> trabajamos codo a codo para<br /> lograr resultados.</h3>
+        <p class="eyebrow">Proyectos destacados</p>
+        <h2 id="carta-ya-titulo" class="title">Carta Ya</h2>
+        <p class="sector">Producto propio de Estudio PWS, en desarrollo, para hostelería: bares, restaurantes y otros negocios.</p>
+        <figure class="shot">
+          <a href="https://cartaya.app/" target="_blank" rel="noopener noreferrer">
+            <Image src={cartaYaCaptura} alt="Pantalla de acceso de cartaya.app" widths={[640, 960, 1440]} sizes="(max-width: 700px) 100vw, 860px" quality={80} />
+          </a>
+        </figure>
+        <dl class="facts">
+          <dt>Qué necesitaba</dt>
+          <dd>Una carta que se pueda cambiar al momento, sin reimprimir cada vez que cambian los platos o los precios, y que sea más que una carta: un centro de información para que el dueño sepa qué productos gustan más y decida con datos.</dd>
+          <dt>Qué hicimos</dt>
+          <dd>Diseñamos y desarrollamos un gestor de cartas online en el que cada negocio crea sus cartas con categorías, productos y fotos, activa o desactiva platos en directo y genera un QR personalizable que lleva a la carta. Incluye analíticas básicas.</dd>
+          <dt>Resultado</dt>
+          <dd>En beta cerrada con un negocio de Mallorca que gestiona food trucks y recibe pedidos de miles de personas cada fin de semana.</dd>
+        </dl>
+        <Image class="mark" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
+      </div>
+    </section>
+
+    <section class="page sheet project" id="ultrastock" aria-labelledby="ultrastock-titulo">
+      <div class="inner">
+        <p class="eyebrow">Proyectos destacados</p>
+        <h2 id="ultrastock-titulo" class="title">UltraStock</h2>
+        <p class="sector">Ultra Móviles, venta de móviles nuevos y reacondicionados con varios locales. UltraStock es su herramienta interna de stock.</p>
+        <figure class="shot fit">
+          <Image src={ultrastockCaptura} alt="Pantalla de Productos de UltraStock, con el listado de móviles y el stock por local" widths={[640, 960, 1200]} sizes="(max-width: 700px) 100vw, 860px" quality={80} />
+        </figure>
+        <dl class="facts">
+          <dt>Qué necesitaba</dt>
+          <dd>Tener el stock de todos sus locales en un solo sitio y encontrar cualquier móvil en segundos para atender al cliente en el mostrador.</dd>
+          <dt>Qué hicimos</dt>
+          <dd>Desarrollamos a medida una aplicación web con control de cada unidad por IMEI o número de serie, variantes, proveedores, locales, usuarios con permisos por rol y un buscador que muestra el stock de cada local. Después añadimos reportes, cambio de local y filtro de precios, y ahora la estamos conectando con su tienda en Wix.</dd>
+          <dt>Resultado</dt>
+          <dd>En producción desde hace un par de meses.</dd>
+        </dl>
+        <Image class="mark" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
+      </div>
+    </section>
+
+    <!-- Logos -->
+    <section class="page" id="clientes" aria-labelledby="clientes-titulo">
+      <div class="inner">
+        <h2 id="clientes-titulo" class="abs right title" style="--r:540; --y:72; --w:470">Han confiado<br /> en nosotros</h2>
+        <h3 class="abs right subtitle sm" style="--r:540; --y:188; --w:400">Empresas y marcas con las que hemos trabajado.</h3>
         <ul class="logos" aria-label="Clientes">
           {clientes.map((c) => (
-            <li class="logo-client" style={`left: calc(${c.x} * var(--u)); top: calc(${c.y} * var(--u)); width: calc(${c.w} * var(--u)); height: calc(${c.h} * var(--u));`}>
-              <Image src={c.src} alt={c.alt} widths={[240, 480, 720]} sizes="(max-width: 700px) 46vw, 330px" />
+            <li class="logo-client">
+              <Image src={c.src} alt={c.alt} widths={[240, 480, 800]} sizes="(max-width: 700px) 42vw, 300px" />
+              {c.note && <span class="logo-note">{c.note}</span>}
             </li>
           ))}
         </ul>
         <div class="foot">
           <Image class="brand" style="--x:433.51; --y:767.67" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
         </div>
+      </div>
+    </section>
+
+    <!-- Cómo trabajamos -->
+    <section class="page sheet" id="como-trabajamos" aria-labelledby="trabajamos-titulo">
+      <div class="inner">
+        <h2 id="trabajamos-titulo" class="title">Cómo trabajamos</h2>
+        <ol class="steps">
+          <li>
+            <h3>Primera reunión</h3>
+            <p>Nos reunimos contigo para estudiar tu caso: qué necesitas, para cuándo y con qué herramientas trabajar ya.</p>
+          </li>
+          <li>
+            <h3>Presupuesto a medida</h3>
+            <p>Después de estudiarlo te enviamos por escrito qué vamos a hacer, en qué plazo y cuánto cuesta, en euros.</p>
+          </li>
+          <li>
+            <h3>Diseño y desarrollo</h3>
+            <p>Vas viendo avances durante el proyecto y puedes pedir cambios antes de la entrega.</p>
+          </li>
+          <li>
+            <h3>Publicación</h3>
+            <p>Ponemos la web o la aplicación en marcha y te enseñamos a usarla.</p>
+          </li>
+        </ol>
+        <Image class="mark" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
+      </div>
+    </section>
+
+    <!-- Contacto -->
+    <section class="page contact" id="contacto" aria-labelledby="contacto-titulo">
+      <div class="inner">
+        <div class="contact-copy">
+          <h2 id="contacto-titulo" class="title">¿Hablamos de tu proyecto?</h2>
+          <p class="lead">Cuéntanos qué necesitas. Nos reunimos contigo para estudiar tu caso y después te preparamos un presupuesto a medida.</p>
+          <ul class="contact-list">
+            <li><span>Web</span> <a href="https://estudiopws.com">estudiopws.com</a></li>
+            <li><span>Email</span> <a href="mailto:info@estudiopws.com">info@estudiopws.com</a></li>
+            <li><span>Dónde</span> <span>Madrid</span></li>
+          </ul>
+        </div>
+        <div class="ill at-right rocket" style="--x:390; --y:0; --w:205.5; --h:842.25" aria-hidden="true">
+          <Image src={cohete} alt="" />
+        </div>
+        <Image class="brand" style="--x:59.54; --y:767.67" src={logoPws} alt="Estudio PWS" widths={[300]} sizes="150px" />
       </div>
     </section>
   </main>
