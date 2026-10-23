@@ -4,6 +4,7 @@ Registro breve de decisiones. Entradas más recientes primero.
 
 ## 23/10/2026
 
+- **Carta Ya y logos.** La ficha de Carta Ya se queda sin captura (se borra la pantalla de acceso). Los logos de «Han confiado en nosotros» van en escala de grises. Salen Calaveras y, como ya estaba, Residencia y Asesoramiento.
 - **Cómo trabajamos.** El párrafo de cada paso caía en la columna del número y dejaba el resto de la fila vacío (en móvil, una o dos palabras por línea). El cuerpo pasa a la columna ancha, bajo el título, en todos los anchos. Las páginas con ilustración de fondo no cambian.
 
 ## 22/10/2026

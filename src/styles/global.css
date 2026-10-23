@@ -270,6 +270,7 @@ main {
   height: auto;
   max-width: 86%;
   object-fit: contain;
+  filter: grayscale(100%);
 }
 .logo-note {
   font-family: var(--font-body);
