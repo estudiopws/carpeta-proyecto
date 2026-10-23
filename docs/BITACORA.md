@@ -2,6 +2,10 @@
 
 Registro breve de decisiones. Entradas más recientes primero.
 
+## 23/10/2026
+
+- **Cómo trabajamos.** El párrafo de cada paso caía en la columna del número y dejaba el resto de la fila vacío (en móvil, una o dos palabras por línea). El cuerpo pasa a la columna ancha, bajo el título, en todos los anchos. Las páginas con ilustración de fondo no cambian.
+
 ## 22/10/2026
 
 - **Textos del borrador de Clara.** Se aplica la propuesta página a página y las decisiones del 22/10/2026: tuteo al cliente, PWS en «nosotros», vocabulario de España, lema «Tu próximo proyecto vuela alto» con la línea nueva debajo y «Madrid» junto a la marca. Orden: portada, quiénes somos, qué hacemos, aplicaciones web a medida, desarrollo web, tienda online, identidad de marca, redes sociales, proyectos destacados, «Han confiado en nosotros», cómo trabajamos y, al final, «¿Hablamos de tu proyecto?» (estudiopws.com, info@estudiopws.com, Madrid; sin teléfono).

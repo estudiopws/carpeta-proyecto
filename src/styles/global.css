@@ -391,7 +391,7 @@ main {
   line-height: 1.2;
   margin: 0 0 calc(6 * var(--u));
 }
-.steps p { margin: 0; }
+.steps p { margin: 0; grid-column: 2; }
 
 /* Contacto: el cohete sigue en el borde derecho, el texto en la columna libre. */
 @media (min-width: 701px) {
