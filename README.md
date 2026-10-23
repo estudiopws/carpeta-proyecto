@@ -1,6 +1,6 @@
 # Carpeta Proyecto · Estudio PWS
 
-Sitio web estático que reproduce, página a página, el PDF **«Estudio PWS - Carpeta Proyecto»** (9 páginas A4): portada, quiénes somos, servicios, desarrollo de sitios web, branding, e-commerce, social media, aplicaciones web y clientes.
+Sitio web estático de la carpeta de proyecto de Estudio PWS. Parte del PDF original y lo actualiza con los textos de España: portada, quiénes somos, qué hacemos, aplicaciones web a medida, desarrollo web, tienda online, identidad de marca, redes sociales, proyectos destacados (WeFlick, Carta Ya y UltraStock), clientes, cómo trabajamos y contacto.
 
 Está pensado solo para compartirlo con clientes: lleva `noindex` y un `robots.txt` que bloquea buscadores, y no incluye analítica, cookies ni backend.
 
@@ -25,10 +25,10 @@ npm run preview  # sirve dist/ en local para revisarlo
 
 ```
 src/
-  pages/index.astro         # las 9 secciones (una por página del PDF)
+  pages/index.astro         # una sección por página de la carpeta
   layouts/Base.astro        # <head>, fuentes, noindex
-  styles/global.css         # maquetación (coordenadas del PDF en escritorio, flujo en móvil)
-  assets/fotos/             # fotografías extraídas del PDF
+  styles/global.css         # maquetación (coordenadas del PDF en escritorio; en móvil el dibujo va detrás del texto)
+  assets/fotos/             # fotografías del PDF y capturas de proyectos
   assets/logos/             # logo de Estudio PWS y logos de clientes
   assets/ilustraciones/     # ilustraciones vectoriales (SVG) extraídas del PDF
 public/                     # favicon y robots.txt

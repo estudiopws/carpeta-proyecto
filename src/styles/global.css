@@ -3,8 +3,8 @@
  * Cada <section class="page"> reproduce una página A4 del PDF (595,5 × 842,25 pt).
  * En escritorio/tablet las medidas se expresan en "puntos del PDF" mediante
  * --u (1 pt = 100cqw / 595.5), así la composición escala igual que el original.
- * En móvil (≤ 700px) el texto pasa a una columna y la ilustración
- * conserva la escala del PDF, sangrada por el mismo borde de página.
+ * En móvil (≤ 700px) el texto pasa a una columna legible y la ilustración
+ * queda detrás, anclada al mismo borde que en el PDF, sin apilarse debajo.
  */
 
 :root {
@@ -148,15 +148,14 @@ main {
 }
 
 /* En escritorio el pie no genera caja: ilustración y marca siguen
-   posicionadas respecto a la hoja. En móvil se convierte en fila. */
+   posicionadas respecto a la hoja. En móvil la ilustración sale del flujo. */
 .foot { display: contents; }
 
-/* La caja del título (380 pt) entra 4,6 pt en el dibujo. El texto real
-   cabe en ~355 pt; limitar la caja lo separa sin mover los glifos. */
+/* «Identidad de marca» es ancha. La caja no debe entrar en los bloques. */
 @media (min-width: 701px) {
-  #branding .title {
+  #identidad .title {
     width: max-content;
-    max-width: calc(367 * var(--u));
+    max-width: calc(360 * var(--u));
   }
 }
 
@@ -194,6 +193,31 @@ main {
   top: calc(742.2 * var(--u));
   width: calc(279.7 * var(--u));
 }
+.p-cover .lede {
+  position: absolute;
+  right: calc((595.5 - 565) * var(--u));
+  top: calc(324 * var(--u));
+  width: calc(268 * var(--u));
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: calc(16 * var(--u));
+  line-height: 1.35;
+  text-align: right;
+  color: var(--paper);
+  text-shadow: 0 1px 2px rgb(20 52 68 / .7), 0 8px 22px rgb(20 52 68 / .45);
+}
+.p-cover .place {
+  position: absolute;
+  left: calc(352 * var(--u));
+  top: calc(752 * var(--u));
+  margin: 0;
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: calc(16 * var(--u));
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
 
 /* ---------- 2. ¿Quiénes somos? ---------- */
 .p-about { background: #fff; }
@@ -222,9 +246,193 @@ main {
 .p-about .photos img:nth-child(2) { object-position: 0 50%; }
 .p-about .photos img:nth-child(3) { object-position: 0 46%; }
 
-/* ---------- 9. Gracias ---------- */
-.logo-client { position: absolute; }
-.logo-client img { width: 100%; height: 100%; object-fit: contain; }
+/* ---------- Logos de clientes ---------- */
+.logos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+}
+.logo-client {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(6 * var(--u));
+  width: 100%;
+  min-width: 0;
+}
+.logo-client img {
+  width: auto;
+  height: auto;
+  max-width: 86%;
+  object-fit: contain;
+  filter: grayscale(100%);
+}
+.logo-note {
+  font-family: var(--font-body);
+  font-size: calc(13 * var(--u));
+  line-height: 1.2;
+  color: var(--ink);
+}
+@media (min-width: 701px) {
+  #clientes .logos {
+    position: absolute;
+    left: calc(44 * var(--u));
+    right: calc(44 * var(--u));
+    top: calc(268 * var(--u));
+    bottom: calc(108 * var(--u));
+    grid-template-rows: repeat(4, minmax(0, 1fr));
+    gap: calc(8 * var(--u)) calc(18 * var(--u));
+  }
+  #clientes .logo-client img { max-height: calc(82 * var(--u)); }
+}
+
+/* ---------- Hojas de flujo (proyectos, cómo trabajamos) ---------- */
+.page.sheet {
+  aspect-ratio: auto;
+  height: auto;
+}
+.page.sheet > .inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(842.25 * var(--u));
+  padding: calc(64 * var(--u)) calc(56 * var(--u)) calc(48 * var(--u));
+}
+.eyebrow {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: calc(13 * var(--u));
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--navy);
+  margin: 0 0 calc(10 * var(--u));
+}
+.project-name {
+  font-family: var(--font-title);
+  font-weight: 900;
+  font-size: calc(32 * var(--u));
+  line-height: 1.1;
+  margin: calc(6 * var(--u)) 0 0;
+}
+.sector, .lead, .facts dd, .steps p, .contact-list {
+  font-family: var(--font-body);
+  font-size: calc(17 * var(--u));
+  line-height: 1.45;
+  color: var(--ink);
+}
+.sector { margin: calc(14 * var(--u)) 0 0; max-width: 42em; }
+.shot {
+  margin: calc(22 * var(--u)) calc(-56 * var(--u)) 0;
+}
+.shot a { display: block; color: inherit; text-decoration: none; }
+.shot img {
+  width: 100%;
+  height: auto;
+  max-height: calc(390 * var(--u));
+  object-fit: cover;
+  object-position: top center;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgb(51 45 45 / .14);
+}
+.shot.fit img {
+  max-height: none;
+  object-fit: contain;
+  object-position: center;
+}
+.facts { margin: calc(22 * var(--u)) 0 0; max-width: 40em; }
+.facts dt {
+  margin-top: calc(16 * var(--u));
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: calc(13 * var(--u));
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+.facts dd { margin: calc(4 * var(--u)) 0 0; }
+.mark {
+  width: calc(102 * var(--u));
+  margin-top: auto;
+  padding-top: calc(36 * var(--u));
+}
+.steps {
+  list-style: none;
+  margin: calc(36 * var(--u)) 0 0;
+  padding: 0;
+  counter-reset: step;
+  display: flex;
+  flex-direction: column;
+  gap: calc(26 * var(--u));
+  max-width: 38em;
+}
+.steps li {
+  display: grid;
+  grid-template-columns: calc(52 * var(--u)) minmax(0, 1fr);
+  gap: calc(12 * var(--u));
+  align-items: start;
+}
+.steps li::before {
+  counter-increment: step;
+  content: counter(step);
+  font-family: var(--font-title);
+  font-weight: 900;
+  font-size: calc(32 * var(--u));
+  line-height: 1;
+  color: var(--navy);
+}
+.steps h3 {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: calc(22 * var(--u));
+  line-height: 1.2;
+  margin: 0 0 calc(6 * var(--u));
+}
+.steps p { margin: 0; grid-column: 2; }
+
+/* Contacto: el cohete sigue en el borde derecho, el texto en la columna libre. */
+@media (min-width: 701px) {
+  .contact-copy {
+    position: relative;
+    z-index: 1;
+    width: calc(330 * var(--u));
+    margin: calc(100 * var(--u)) 0 0 calc(56 * var(--u));
+  }
+  .contact-copy .title { margin-bottom: calc(18 * var(--u)); }
+}
+.lead { margin: 0; max-width: 36em; }
+.contact-list {
+  list-style: none;
+  margin: calc(28 * var(--u)) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 * var(--u));
+}
+.contact-list li {
+  display: grid;
+  grid-template-columns: calc(78 * var(--u)) minmax(0, 1fr);
+  gap: calc(10 * var(--u));
+  align-items: baseline;
+}
+.contact-list li > span:first-child {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: calc(14 * var(--u));
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+.contact-list a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  overflow-wrap: anywhere;
+}
 
 /* ======================= Móvil ======================= */
 @media (max-width: 700px) {
@@ -235,7 +443,6 @@ main {
     box-shadow: none;
     overflow: hidden;
   }
-  /* Las hojas de papel comparten fondo: un filete marca el cambio de sección. */
   .page + .page:not(.p-about) {
     box-shadow: inset 0 1px 0 rgb(51 45 45 / .14);
   }
@@ -252,6 +459,7 @@ main {
   .abs, .abs.right {
     position: static;
     width: auto;
+    z-index: 1;
   }
   .abs.right { text-align: left; }
   .abs.body { margin-top: 0; }
@@ -261,7 +469,7 @@ main {
     margin-bottom: 12px;
     text-wrap: balance;
   }
-  .title .sub-title { font-size: 1.9rem; line-height: 1.15; }
+  .title .sub-title { font-size: 1.35rem; line-height: 1.2; margin-top: 4px; }
   .subtitle, .subtitle.sm {
     font-size: 1.3rem;
     line-height: 1.32;
@@ -274,93 +482,126 @@ main {
   .justify { text-align: left; }
   .title br, .subtitle br { display: none; }
 
-  /* Firma: marca a un lado, ilustración a la escala del PDF sangrando
-     por el borde contrario (el mismo recorte que la hoja impresa). */
+  /* La ilustración es fondo, anclada al borde del PDF. El texto ocupa
+     la columna libre y la marca cierra esa columna, no una fila debajo. */
   .foot {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 16px;
-    order: 10;
-    margin-top: 32px;
-    margin-left: calc(var(--pad-x) * -1);
-    margin-right: calc(var(--pad-r) * -1);
-  }
-  .foot .brand {
+    display: block;
     position: static;
-    width: 120px;
-    height: auto;
-    order: 1;
-    margin: 0 24px 10px;
-    flex: none;
+    order: 8;
+    margin-top: auto;
+    padding-top: 28px;
+    z-index: 1;
   }
-  .foot .ill.at-left { order: 0; }
-  .foot .ill.at-right { order: 2; }
-  #sitios-web .foot,
-  #gracias .foot { justify-content: flex-end; }
-  /* La aleta del cohete ocupa la esquina inferior: la marca va arriba, en el hueco. */
-  #servicios .foot { align-items: flex-start; }
-  #servicios .foot .brand { margin-top: 12px; margin-bottom: 0; }
+  .foot .brand, .page > .inner > .brand {
+    position: static;
+    width: 112px;
+    height: auto;
+    margin: 0;
+    z-index: 1;
+  }
+  #aplicaciones-web .brand,
+  #desarrollo-web .brand,
+  #tienda-online .brand,
+  #clientes .brand { margin-left: auto; }
 
   .ill {
-    position: relative;
-    left: auto;
-    top: auto;
-    height: auto;
-    width: calc(var(--w) * 100cqw / 595.5);
-    max-width: calc(100cqw - 176px);
-    min-width: 0;
-    margin: 0;
-    flex: 0 1 auto;
-  }
-  .ill img { width: 100%; height: auto; max-width: none; }
-
-  /* La regla sigue siendo el canto izquierdo; 44px enseña las marcas. */
-  #sitios-web > .inner {
-    padding-left: max(68px, calc(env(safe-area-inset-left, 0px) + 52px));
-  }
-  .ill.ruler {
     position: absolute;
-    left: 0;
+    z-index: 0;
+    left: auto;
     top: 0;
     bottom: 0;
-    width: 44px;
-    max-width: none;
+    width: auto;
     height: auto;
     margin: 0;
+    max-width: none;
+    pointer-events: none;
   }
-  .ill.ruler img {
+  .ill img {
     width: 100%;
     height: 100%;
+    max-width: none;
+    object-fit: contain;
+  }
+
+  /* Cohete: columna derecha a toda la altura de la sección. */
+  #que-hacemos > .inner,
+  #contacto > .inner {
+    padding-right: 42%;
+    min-height: 560px;
+  }
+  .ill.rocket {
+    right: 0;
+    width: 40%;
+  }
+  .ill.rocket img {
     object-fit: cover;
     object-position: right center;
   }
 
-  /* El cuerpo del cohete va pegado al borde y, a escala del PDF, es una tira.
-     En el pie se enseña la aleta y las ventanas, más grandes, cortadas por ese borde. */
-  .ill.rocket {
-    position: relative;
-    align-self: flex-end;
-    flex: none;
-    width: min(200px, calc(100cqw - 200px));
-    max-width: calc(100cqw - 200px);
-    height: 280px;
-    overflow: hidden;
+  /* Regla: canto izquierdo, las marcas a la vista. */
+  #desarrollo-web > .inner {
+    padding-left: max(72px, calc(env(safe-area-inset-left, 0px) + 56px));
+    min-height: 520px;
   }
-  .ill.rocket img {
-    width: 100%;
-    height: 100%;
-    max-width: none;
+  .ill.ruler {
+    left: 0;
+    right: auto;
+    width: 44px;
+    bottom: 0;
+  }
+  .ill.ruler img {
     object-fit: cover;
-    object-position: right 74%;
+    object-position: right center;
   }
+
+  /* Bloques de marca y redes: columna derecha, sin tapar el texto. */
+  #identidad > .inner,
+  #redes > .inner {
+    padding-right: 40%;
+    min-height: 520px;
+  }
+  .ill.blocks, .ill.bubbles {
+    right: 0;
+    width: 36%;
+  }
+  .ill.blocks img, .ill.bubbles img { object-position: right center; }
+
+  /* Tienda y móvil: columna izquierda. */
+  #tienda-online > .inner {
+    padding-left: 46%;
+    min-height: 520px;
+  }
+  .ill.shop {
+    left: 0;
+    right: auto;
+    width: 42%;
+  }
+  .ill.shop img { object-position: left center; }
+  #aplicaciones-web > .inner {
+    padding-left: 36%;
+    min-height: 560px;
+  }
+  .ill.phone {
+    left: 0;
+    right: auto;
+    width: 32%;
+  }
+  .ill.phone img { object-position: left center; }
 
   /* Portada: se mantiene la composición escalada (A4) */
   .p-cover { aspect-ratio: 595.5 / 842.25; }
-  .p-cover > .inner { position: absolute; padding: 0; display: block; }
+  .p-cover > .inner { position: absolute; padding: 0; display: block; min-height: 0; }
+  .p-cover .lede {
+    font-size: 0.95rem;
+    line-height: 1.35;
+    width: 70%;
+    top: 43%;
+    right: 5%;
+  }
+  .p-cover .place { font-size: max(12px, calc(14 * var(--u))); }
 
-  /* Quiénes somos */
-  .p-about > .inner { padding-bottom: 0; }
+  /* Quiénes somos: las fotos siguen en tira; no van detrás del texto. */
+  .p-about > .inner { padding-bottom: 0; min-height: 0; }
   .p-about .photos {
     position: static;
     order: 4;
@@ -378,21 +619,39 @@ main {
   }
   .p-about .dark p { margin: 0; font-size: 2rem; }
 
-  /* Gracias */
+  /* Logos */
   .logos {
     order: 5;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px 20px;
-    align-items: center;
+    gap: 28px 16px;
     margin-top: 8px;
   }
-  .logo-client { position: static; width: auto !important; height: auto !important; }
-  .logo-client img { max-height: 110px; margin: 0 auto; }
-}
+  .logo-client { gap: 6px; }
+  .logo-client img { max-height: 84px; max-width: 100%; }
+  .logo-note { font-size: 0.75rem; }
 
-@media (min-width: 701px) {
-  .logos { display: contents; }
+  /* Proyectos, pasos y contacto en flujo */
+  .page.sheet > .inner {
+    min-height: 0;
+    padding: 48px var(--pad-r) max(36px, env(safe-area-inset-bottom, 0px)) var(--pad-x);
+  }
+  .project-name { font-size: 1.8rem; line-height: 1.1; margin: 0 0 10px; }
+  .eyebrow { font-size: 0.78rem; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .sector, .lead, .facts dd, .steps p { font-size: 1.0625rem; line-height: 1.5; }
+  .sector { margin-top: 0; }
+  .shot { margin: 20px calc(var(--pad-r) * -1) 0 calc(var(--pad-x) * -1); }
+  .shot img { max-height: 240px; }
+  .shot.fit img { max-height: none; }
+  .facts { margin-top: 8px; }
+  .facts dt { margin-top: 16px; font-size: 0.78rem; }
+  .mark { width: 112px; padding-top: 32px; }
+  .steps { margin-top: 8px; gap: 22px; }
+  .steps li { grid-template-columns: 2.4rem minmax(0, 1fr); gap: 10px; }
+  .steps li::before { font-size: 1.7rem; }
+  .steps h3 { font-size: 1.2rem; }
+  .contact-copy { position: static; width: auto; margin: 0; z-index: 1; }
+  .contact-list { margin-top: 22px; gap: 12px; font-size: 1.05rem; }
+  .contact-list li { grid-template-columns: 5.2rem minmax(0, 1fr); }
+  .contact-list li > span:first-child { font-size: 0.78rem; }
+  #contacto > .inner { padding-bottom: max(36px, env(safe-area-inset-bottom, 0px)); }
+  #contacto .brand { margin-top: auto; }
 }
-
-.logos { list-style: none; margin: 0; padding: 0; }
